@@ -12,7 +12,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server2.js",
+    "start": "node server2.js"
     
   },
   "repository": {
@@ -26,6 +26,4 @@
     "url": "https://github.com/bertuzz1/databook2/issues"
   },
   "homepage": "https://github.com/bertuzz1/databook2#readme"
-  },
-
 }

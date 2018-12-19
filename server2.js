@@ -19,9 +19,10 @@ MongoClient.connect(url, { useNewUrlParser: true }, (err, info) => {
   // console.log(info);
   db = info.db('mean_kurssi');
 
-  // Start server on port 8081
-  app.listen(8081);
-  console.log("App is using port 8081");
+  // Start server on port 3000 OR ENVIROMENT VARIABLE
+const PORT = process.env.PORT || 3000;
+  console.log("App is using port 3000 or herokuport");
+  app.listen(PORT);
 
   // Render index.ejs to browser
   app.get("/", function(req, res) {
