@@ -1,0 +1,33 @@
+<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet" />
+<div class="container">
+  <h2 style="text-align:center; color:red;">Listing movies from a mongodb</h2>
+  <br />
+  <div class="listaus">
+    <table>
+      <tr>
+        <th>title</th>
+        <th>year</th>
+        <th>cast</th>
+
+      </tr>
+      <% for(var i = 0; i < movies.length; i++) { %>
+      <tr>
+        <td>
+          <%= movies[i].title %>
+        </td>
+        <td>
+          <%= movies[i].year %>
+        </td>
+        <td>
+          <%= movies[i].cast %>
+        </td>
+
+      </tr>
+
+      <% } %>
+    </table> <br>
+    <div class="keskitetty">
+
+    </div>
+  </div>
+</div>
