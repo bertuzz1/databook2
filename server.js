@@ -34,7 +34,7 @@ const PORT = process.env.PORT || 3000;
     var query = { year: { $gt: 2000 } };
       db.collection("movies")
         .find(query)
-        .limit(10)
+        .limit(5)
         .toArray(function(err, result) {
           if (err) throw err;
           console.log(result);
@@ -50,12 +50,12 @@ const PORT = process.env.PORT || 3000;
     res.render('page/newmessage')
   });
 
-  // Insert data 
+  // Insert data to a collection
   app.post('/newmessage', (req, res) => {
     db.collection("insert1").insertOne(req.body, (err, result) => {
       if (err) throw err;
       console.log(req.body);
-      console.log('The data has been updated to our database!');
+      console.log('The data has been updated to the database!');
       res.redirect('/');
         });
     });
