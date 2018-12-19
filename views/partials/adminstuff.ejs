@@ -1,32 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link href="/bootstrap.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link href="/bootstrap.css" rel="stylesheet">
+
+  <title>Guestbook</title>
+
+  <!-- Bootstrap core CSS -->
 
 
-<body>
 
 <body class="container">
+  <content>
+
+    <br> <br>
+  <h2 style="text-align:center; color:orange;">Try to delete a movie by title</h2>
 
 
-<h1 style="font-size:26px;">Remove Movie</h1>
+  <div class="keskitetty">
 
-  <form method="post" action=/delete>
-    <select style="font-size:22px" name="title">
-      <% movies.forEach(function(movies) { %>
-        <option value= <%= movies.title %>>
-          <%= movies.title %>
-        </option>
-        <% }); %>
-    </select>
-  <input style="font-size:20px" value="Delete" type="submit"/>
-  </form>
+    <br>
+    <form method="post" action="/delete">
 
-<% include ../partials/footer %>
+      <input type="text" name="name" /> <br /> <br>
 
-</body>
-</html>
+      <input type="submit" value="Delete" />
+    </form>
+
+    <br>
+    <div class="listaus">
+        <table>
+          <tr>
+            <th>Title</th>
+            <th>Year</th>
+            <th>Cast</th>
+
+          </tr>
+          <% for(var i = 0; i < movies.length; i++) { %>
+          <tr>
+            <td>
+              <%= movies[i].title %>
+            </td>
+            <td>
+              <%= movies[i].year %>
+            </td>
+            <td>
+              <%= movies[i].cast %>
+            </td>
+          </tr>
+          <% } %>
+        </table> <br>
+
+
+
