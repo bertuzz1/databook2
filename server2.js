@@ -44,6 +44,7 @@ const PORT = process.env.PORT || 3000;
     });
   });
 
+
   // Newmessage
   app.get('/newmessage', (req, res) => {
     res.render('page/newmessage')
@@ -83,10 +84,23 @@ app.get('/admin', (req, res) => {
     
 
 
-///////  API STUFF BELOW
+
+
+
+
+///////////////////////////           API STUFF         ///////////////////////
 
 const ObjectId = require("mongodb").ObjectID;
 
+// get all movie
+app.get("/api/getall", (req, res) => {
+    db.collection("movies")
+      .find()
+      .toArray(function(err, result) {
+        if (err) throw err;
+        res.send({ result });
+      });
+  });
 
 // get single movie
 app.get("/api/movie/:movieId", function(req, res) {
@@ -102,15 +116,16 @@ app.get("/api/movie/:movieId", function(req, res) {
 
 // delete a single movie
 app.delete("/api/movie/:movieId", function(req, res) {
-    const movieId = req.params.movieId;
-    db.collection("movies").deleteOne({ _id: movieId });
-    res.send(200);
-    });
-
+  const movieId = req.params.movieId;
+  db.collection("movies").deleteOne({ _id: ObjectId(movieId) });
+  res.send(200);
+});
 
 // update a single movie
 app.put("/api/movie/:movieId", function(req, res) {
-    const movieId = req.params.movieId;
-    const updated = db.collection("movies").updateOne({ _id: movieId }, req.body);
-    res.send({ result: updated });
+  const movieId = req.params.movieId;
+  const updated = db
+    .collection("movies")
+    .updateOne({ _id: ObjectId(movieId) }, req.body);
+  res.send({ result: updated });
 });
