@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="/bootstrap.css" rel="stylesheet">
+
+<% include ../partials/header %>
+
+<body>
+
+<body class="container">
+
+
+
+<h1 style="font-size:26px;">Remove Movie</h1>
+<div style="margin-top:40px;" id="content">
+
+  <form method="post" action=/delete>
+    <select style="font-size:22px" name="title">
+      <% movies.forEach(function(movies) { %>
+        <option value= <%= movies.title %>>
+          <%= movies.title %>
+        </option>
+        <% }); %>
+    </select>
+  <input style="font-size:20px" value="Delete" type="submit" />
+  </form>
+
+    <table border="1">
+
+      <tr>
+        <th>title</th>
+        <th>year</th>
+        <th>cast</th>
+      </tr>
+
+      <% movies.forEach(function(movies) { %>
+      <tr>
+        <td>
+          <%= movies.title %>
+        </td>
+        <td>
+          <%= movies.year %>
+        </td>
+        <td>
+          <%= movies.cast %>
+        </td>
+      </tr>
+      <% }); %>
+
+    </table>
+</div>
+
+</div>
+
+<% include ../partials/footer %>
+
+</body>
+</html>

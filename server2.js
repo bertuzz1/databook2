@@ -34,7 +34,7 @@ const PORT = process.env.PORT || 3000;
     var query = { year: { $gt: 2000 } };
       db.collection("movies")
         .find(query)
-        .limit(20)
+        .limit(10)
         .toArray(function(err, result) {
           if (err) throw err;
           console.log(result);
@@ -44,12 +44,12 @@ const PORT = process.env.PORT || 3000;
     });
   });
 
-  // Render new message to browser
+  // Newmessage
   app.get('/newmessage', (req, res) => {
     res.render('page/newmessage')
   });
 
-  // Insert data to database in mlab
+  // Insert data 
   app.post('/newmessage', (req, res) => {
     db.collection("insert1").insertOne(req.body, (err, result) => {
       if (err) throw err;
@@ -58,3 +58,59 @@ const PORT = process.env.PORT || 3000;
       res.redirect('/');
         });
     });
+
+// admin page
+app.get('/admin', (req, res) => {
+// Sort with latest posts added in database
+    db.collection("movies").find({}).sort({"_id": 1}).toArray((err, result) => {
+      if (err) throw err;
+      res.render("page/admin", {
+        movies: result
+      });
+    });
+  });
+
+    // Remove a movie 
+    app.post('/delete', (req, res) => {
+        db.collection("movies").deleteOne({username: req.body.username}, (err, result) => {
+          if (err) throw err;
+          console.log(req.body.movies + " has been deleted!");
+          res.render("page/delete", {
+            movies: result
+          });
+        });
+      });
+    
+
+
+///////  API STUFF BELOW
+
+const ObjectId = require("mongodb").ObjectID;
+
+
+// get single movie
+app.get("/api/movie/:movieId", function(req, res) {
+  const movieId = req.params.movieId;
+  console.log(movieId);
+  db.collection("movies")
+    .find({ _id: { $eq: ObjectId(movieId) } })
+    .toArray(function(err, movie) {
+      console.log(movie);
+      res.send({ results: movie });
+    });
+});
+
+// delete a single movie
+app.delete("/api/movie/:movieId", function(req, res) {
+    const movieId = req.params.movieId;
+    db.collection("movies").deleteOne({ _id: movieId });
+    res.send(200);
+    });
+
+
+// update a single movie
+app.put("/api/movie/:movieId", function(req, res) {
+    const movieId = req.params.movieId;
+    const updated = db.collection("movies").updateOne({ _id: movieId }, req.body);
+    res.send({ result: updated });
+});
